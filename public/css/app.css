@@ -1,0 +1,55 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+.el-header {
+    padding: 0 !important;
+}
+.opacity-enter-active {
+    -webkit-animation-name: opacity-in;
+            animation-name: opacity-in;
+    -webkit-animation-duration: .3s;
+            animation-duration: .3s;
+}
+.opacity-leave-active {
+    -webkit-animation-name: opacity-out;
+            animation-name: opacity-out;
+    -webkit-animation-duration: .3s;
+            animation-duration: .3s;
+}
+
+@-webkit-keyframes opacity-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes opacity-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes opacity-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes opacity-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
