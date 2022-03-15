@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\ImageOptimizer\Optimizers\Jpegoptim;
@@ -40,5 +41,27 @@ class Auto extends Model implements HasMedia
                         ]
                     ]);
             });
+    }
+
+    /**
+     * Связь с активным заказом
+     * @return HasMany
+     */
+    public  function active_order(): HasMany
+    {
+        return $this->hasMany(Order::class, 'auto_id')
+            ->where([
+                ['date_start', '>', Carbon::today()->toDateString()],
+                ['date_end', '<', Carbon::today()->toDateString()]
+            ]);
+    }
+
+    /**
+     * Связь с заказами
+     * @return HasMany
+     */
+    public  function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'auto_id');
     }
 }
