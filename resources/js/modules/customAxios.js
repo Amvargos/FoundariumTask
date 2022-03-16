@@ -1,4 +1,5 @@
 import axios from "axios";
+import { notify } from "@kyvg/vue3-notification";
 
 const instance = axios.create({
     baseURL: '/api/',
@@ -22,21 +23,17 @@ const notifyError = (error) => {
     if (errors) {
         Object.keys(errors).forEach((key) => {
             if (key === "0") {
-                // Vue.prototype.$notify({
-                //     group: 'foo',
-                //     title: 'Ошибка',
-                //     type: 'error',
-                //     text: errors[0],
-                //     duration: 7000
-                // });
+                notify({
+                    title: 'Ошибка',
+                    text: errors[0],
+                    type: 'error',
+                });
             } else {
-                // Vue.prototype.$notify({
-                //     group: 'foo',
-                //     title: 'Ошибка',
-                //     type: 'error',
-                //     text: errors[key][0],
-                //     duration: 7000
-                // });
+                notify({
+                    title: 'Ошибка',
+                    text: errors[key][0],
+                    type: 'error',
+                });
             }
         });
     }

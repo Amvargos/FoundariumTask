@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Auto;
 use App\Models\User;
 
 class AutoResource extends BaseResource
@@ -9,9 +10,11 @@ class AutoResource extends BaseResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->resource->id,
+            'title' => $this->title,
             'brand' => $this->brand,
-            'active_order' => new OrderResource($this->active_order),
+            Auto::AUTO_PICTURE => new MediaResource($this->getFirstMedia(Auto::AUTO_PICTURE)),
+            'active_orders' => OrderResource::collection($this->active_orders ? $this->active_orders : null),
         ];
     }
 }

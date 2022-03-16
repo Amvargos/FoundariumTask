@@ -4,6 +4,13 @@ body {
 .el-header {
     padding: 0 !important;
 }
+.el-sub-menu__hide-arrow{
+    display:none;
+}
+.el-upload-dragger svg {
+    width: 100%;
+    max-width: 120px;
+}
 .opacity-enter-active {
     -webkit-animation-name: opacity-in;
             animation-name: opacity-in;

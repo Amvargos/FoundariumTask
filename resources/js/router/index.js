@@ -1,11 +1,32 @@
 import { createWebHistory, createRouter } from "vue-router";
 import MainScreen from "@/screens/MainScreen";
+import LoginScreen from "@/screens/auth/LoginScreen";
+import RegisterScreen from "@/screens/auth/RegisterScreen";
+import AutosScreen from "@/screens/auto/MainScreen";
 
-const routes = [
+export const routes = [
     {
-        path: "/",
-        name: "Main",
+        name: 'main',
+        path: '/',
         component: MainScreen,
+    },
+
+    {
+        name: 'autos',
+        path: '/autos',
+        component: AutosScreen,
+    },
+
+    {
+        name: 'login',
+        path: '/login',
+        component: LoginScreen,
+    },
+
+    {
+        name: 'register',
+        path: '/register',
+        component: RegisterScreen,
     },
 ];
 

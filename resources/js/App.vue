@@ -10,6 +10,15 @@
 
 <script>
 export default {
-
+    created() {
+        this.getUser();
+    },
+    methods: {
+        getUser(){
+            this.$axios.get('/getUser').then((response) => {
+                localStorage.setItem("role", response.data.roles[0].name);
+            });
+        }
+    },
 }
 </script>

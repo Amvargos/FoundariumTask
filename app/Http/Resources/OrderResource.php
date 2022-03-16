@@ -12,9 +12,9 @@ class OrderResource extends BaseResource
             'id' => $this->id,
             'date_start' => $this->date_start,
             'date_end' => $this->date_end,
-            $this->mergeWhenCustom('author', [
-                'author' => $this->author,
-            ]),
+//            $this->mergeWhenCustom('author', [
+//                'author' => $this->author,
+//            ]),
         ];
     }
 }

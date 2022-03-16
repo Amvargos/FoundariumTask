@@ -30,8 +30,8 @@ class Order extends Model
      * Связь с машиной
      * @return HasMany
      */
-    public  function auto(): HasMany
+    public  function auto(): hasOne
     {
-        return $this->hasOne(Auto::class, 'auto_id');
+        return $this->hasOne(Auto::class);
     }
 }

@@ -21,7 +21,7 @@ class Controller extends BaseController
 
     public function success($data, int $code = 200)
     {
-        return response()->json(['data' => $data], $code);
+        return response()->json($data, $code);
     }
 
     public function error($errors, int $code = 500)
