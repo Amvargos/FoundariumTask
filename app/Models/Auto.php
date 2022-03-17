@@ -12,15 +12,72 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
+/**
+ * @OA\Schema(
+ *     title="Auto",
+ *     description="Auto model",
+ *     @OA\Xml(
+ *         name="Auto"
+ *     )
+ * )
+ */
 class Auto extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
+
+    /**
+     * @OA\Property(
+     *     title="ID",
+     *     description="ID",
+     *     format="int64",
+     *     example=1
+     * )
+     *
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @OA\Property(
+     *      title="Название",
+     *      description="Название машины",
+     *      example="Jaguar XF"
+     * )
+     *
+     * @var string
+     */
+    public $title;
+
+    /**
+     * @OA\Property(
+     *     title="Created at",
+     *     description="Время создания",
+     *     example="2022-03-17 17:50:45",
+     *     format="datetime",
+     *     type="string"
+     * )
+     *
+     * @var \DateTime
+     */
+    private $created_at;
+
+    /**
+     * @OA\Property(
+     *     title="Updated at",
+     *     description="Время обновления",
+     *     example="2022-03-17 17:50:45",
+     *     format="datetime",
+     *     type="string"
+     * )
+     *
+     * @var \DateTime
+     */
+    private $updated_at;
 
     const AUTO_PICTURE = 'auto_picture';
 
     protected $fillable = [
         'title',
-        'brand',
     ];
 
     public function registerMediaCollections(): void

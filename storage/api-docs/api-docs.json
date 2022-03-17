@@ -1,0 +1,603 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Foundarium API",
+        "description": "Тестовое задание для Foundarium",
+        "contact": {
+            "name": "Варужан",
+            "email": "varujan@ambaryan.ru"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8003/api",
+            "description": "LocalHost API"
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Авторизация"
+                ],
+                "summary": "Авторизация пользователя",
+                "operationId": "2dd578ff7aba2721293dac66833b27d1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешная авторизация",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Серверная ошибка"
+                    },
+                    "422": {
+                        "description": "Указанные данные недействительны."
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Авторизация"
+                ],
+                "summary": "Создание нового пользователя",
+                "operationId": "0903f2e0df1a8857bee538fc055417f0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Успешная регистрация",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Серверная ошибка"
+                    },
+                    "422": {
+                        "description": "Указанные данные недействительны."
+                    }
+                }
+            }
+        },
+        "/autos": {
+            "get": {
+                "tags": [
+                    "Автомобиль"
+                ],
+                "summary": "Список все автомобилей",
+                "operationId": "6d9b3afdc24d42aa9643fbdb933f9c1c",
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Auto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Автомобиль"
+                ],
+                "summary": "Создание нового автомобиля",
+                "operationId": "ccf7c55f1a4771d99aeab93ef398ca95",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreAutoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Автомобиль успешно создан",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Auto"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Серверная ошибка"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "422": {
+                        "description": "Указанные данные недействительны."
+                    }
+                }
+            }
+        },
+        "/autos/{id}": {
+            "get": {
+                "tags": [
+                    "Автомобиль"
+                ],
+                "summary": "Информация об автомобиле",
+                "operationId": "d4178c02934e6d75547cfbf1724df582",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Auto id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Auto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Автомобиль"
+                ],
+                "summary": "Обновление информации об автомобиле",
+                "operationId": "03a93b6c9c371f724d6b12568ff8fa06",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Auto id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreAutoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успшено сохранено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Auto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Автомобиль"
+                ],
+                "summary": "Удалить автомобиль",
+                "operationId": "c693cf2b403fdabc0a3995c0d45e214c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Auto id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/auto/{id}/booking": {
+            "post": {
+                "tags": [
+                    "Автомобиль"
+                ],
+                "summary": "Бронирование автомобиля",
+                "operationId": "57a9521da4173938346240564deabe43",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Auto id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BookingRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успшено забронировано"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/getUser": {
+            "get": {
+                "tags": [
+                    "Пользователь"
+                ],
+                "summary": "Информация об авторизованном пользователе",
+                "operationId": "094fa99bf0890945d3aa6d01bcffcbe1",
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Серверная ошибка"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BookingRequest": {
+                "title": "Booking Request",
+                "description": "Booking request body data",
+                "required": [
+                    "date_start",
+                    "date_end"
+                ],
+                "properties": {
+                    "date_start": {
+                        "title": "Date start",
+                        "description": "Время Начала брони",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2022-03-17 17:50:45"
+                    },
+                    "date_end": {
+                        "title": "Date end",
+                        "description": "Время окончания брони",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2022-03-17 17:50:45"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginRequest": {
+                "title": "Login User Request",
+                "description": "Login user request body data",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "title": "email",
+                        "description": "E-Mail пользователя",
+                        "type": "string",
+                        "example": "varujan@ambaryan.ru"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "Пароль пользователя",
+                        "type": "string",
+                        "example": "qwerty123456"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterRequest": {
+                "title": "Register User Request",
+                "description": "Register user request body data",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Имя нового пользователя",
+                        "type": "string",
+                        "example": "Варужан"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "E-Mail нового пользователя",
+                        "type": "string",
+                        "example": "varujan@ambaryan.ru"
+                    },
+                    "password": {
+                        "title": "email",
+                        "description": "Пароль нового пользователя",
+                        "type": "string",
+                        "example": "qwerty123456"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreAutoRequest": {
+                "title": "Store Auto Request",
+                "description": "Store auto request body data",
+                "required": [
+                    "title",
+                    "auto_picture"
+                ],
+                "properties": {
+                    "title": {
+                        "title": "Название",
+                        "description": "Название нового автомобиля",
+                        "type": "string",
+                        "example": "Jaguar XF"
+                    },
+                    "auto_picture": {
+                        "title": "Картинка",
+                        "description": "Картинка нового автомобиля",
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "AutoResource": {
+                "title": "AutoResource",
+                "description": "Auto resource",
+                "properties": {
+                    "": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Auto"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "AutoResource"
+                }
+            },
+            "UserResource": {
+                "title": "UserResource",
+                "description": "User resource",
+                "properties": {
+                    "": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UserResource"
+                }
+            },
+            "Auto": {
+                "title": "Auto",
+                "description": "Auto model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "title": {
+                        "title": "Название",
+                        "description": "Название машины",
+                        "type": "string",
+                        "example": "Jaguar XF"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Время создания",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2022-03-17 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Время обновления",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2022-03-17 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Auto"
+                }
+            },
+            "User": {
+                "title": "User",
+                "description": "User model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Имя пользователя",
+                        "type": "string",
+                        "example": "Варужан"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "description": "E-Mail пользователя",
+                        "type": "string",
+                        "example": "Варужан"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Время создания",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2022-03-17 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Время обновления",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2022-03-17 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Введите токен в формате: (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Авторизация"
+        },
+        {
+            "name": "Пользователь"
+        },
+        {
+            "name": "Автомобиль"
+        }
+    ]
+}

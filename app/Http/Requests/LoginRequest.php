@@ -5,23 +5,43 @@ namespace App\Http\Requests;
 use App\Models\Party;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *      title="Login User Request",
+ *      description="Login user request body data",
+ *      type="object",
+ *      required={"email", "password"}
+ * )
+ */
 class LoginRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * @OA\Property(
+     *      title="email",
+     *      description="E-Mail пользователя",
+     *      example="varujan@ambaryan.ru"
+     * )
      *
-     * @return bool
+     * @var string
      */
+    public $email;
+
+    /**
+     * @OA\Property(
+     *      title="password",
+     *      description="Пароль пользователя",
+     *      example="qwerty123456"
+     * )
+     *
+     * @var string
+     */
+    public $password;
+
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [

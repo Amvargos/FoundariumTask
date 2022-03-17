@@ -7,6 +7,34 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
+/**
+ * @OA\Info(
+ *     description="Тестовое задание для Foundarium",
+ *     version="1.0",
+ *     title="Foundarium API",
+ *     @OA\Contact(
+ *         name="Варужан",
+ *         email="varujan@ambaryan.ru",
+ *     ),
+ * )
+ *
+ * @OA\Server(
+ *     description="LocalHost API",
+ *     url="http://127.0.0.1:8003/api"
+ * )
+ *
+ * @OA\Tag(
+ *     name="Авторизация",
+ * )
+ * @OA\Tag(
+ *     name="Пользователь",
+ * )
+ * @OA\Tag(
+ *     name="Автомобиль",
+ * )
+ *
+ */
+
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;

@@ -5,23 +5,54 @@ namespace App\Http\Requests;
 use App\Models\Party;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *      title="Register User Request",
+ *      description="Register user request body data",
+ *      type="object",
+ *      required={"name","email","password"}
+ * )
+ */
 class RegisterRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * @OA\Property(
+     *      title="name",
+     *      description="Имя нового пользователя",
+     *      example="Варужан"
+     * )
      *
-     * @return bool
+     * @var string
      */
+    public $name;
+
+    /**
+     * @OA\Property(
+     *      title="email",
+     *      description="E-Mail нового пользователя",
+     *      example="varujan@ambaryan.ru"
+     * )
+     *
+     * @var string
+     */
+    public $email;
+
+    /**
+     * @OA\Property(
+     *      title="email",
+     *      description="Пароль нового пользователя",
+     *      example="qwerty123456"
+     * )
+     *
+     * @var string
+     */
+    public $password;
+
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [

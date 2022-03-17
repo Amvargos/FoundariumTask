@@ -12,6 +12,33 @@ use Illuminate\Support\Str;
 
 class AutoController extends Controller
 {
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @OA\Get(
+     *     path="/autos",
+     *     tags={"Автомобиль"},
+     *     summary="Список все автомобилей",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Успешный запрос",
+     *         @OA\JsonContent(ref="#/components/schemas/Auto")
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      ),
+     * )
+     */
     public function index()
     {
         $query = Auto::orderBy('id', 'desc');
@@ -21,6 +48,48 @@ class AutoController extends Controller
         return AutoResource::collection($autos);
     }
 
+    /**
+     * @param StoreAutoRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @OA\Post(
+     *     path="/autos",
+     *     tags={"Автомобиль"},
+     *     summary="Создание нового автомобиля",
+     *      @OA\RequestBody(
+     *           @OA\JsonContent(ref="#/components/schemas/StoreAutoRequest"),
+     *      ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Автомобиль успешно создан",
+     *         @OA\JsonContent(ref="#/components/schemas/Auto")
+     *      ),
+     *     @OA\Response(
+     *          response=500,
+     *          description="Серверная ошибка"
+     *      ),
+     *          *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      ),
+     *     @OA\Response(
+     *          response=422,
+     *          description="Указанные данные недействительны.",
+     *     ),
+     * )
+     */
     public function store(StoreAutoRequest $request)
     {
         $auto = new Auto();
@@ -38,11 +107,95 @@ class AutoController extends Controller
         return new AutoResource($auto->refresh());
     }
 
+    /**
+     * @param Auto $auto
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @OA\Get(
+     *     path="/autos/{id}",
+     *     tags={"Автомобиль"},
+     *     summary="Информация об автомобиле",
+     *     @OA\Parameter(
+     *         name="id",
+     *         description="Auto id",
+     *         required=true,
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Успешный запрос",
+     *         @OA\JsonContent(ref="#/components/schemas/Auto")
+     *     ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      ),
+     * )
+     */
     public function show(Auto $auto)
     {
         return new AutoResource($auto);
     }
 
+    /**
+     * @param Auto $auto
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @OA\Put(
+     *      path="/autos/{id}",
+     *      tags={"Автомобиль"},
+     *      summary="Обновление информации об автомобиле",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Auto id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StoreAutoRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Успшено сохранено",
+     *          @OA\JsonContent(ref="#/components/schemas/Auto")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      ),
+     * )
+     */
     public function update(StoreAutoRequest $request, Auto $auto)
     {
         $auto->update($request->validated());
@@ -58,6 +211,49 @@ class AutoController extends Controller
         return new AutoResource($auto);
     }
 
+    /**
+     * @param Auto $auto
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @OA\Post(
+     *      path="/auto/{id}/booking",
+     *      tags={"Автомобиль"},
+     *      summary="Бронирование автомобиля",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Auto id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/BookingRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Успшено забронировано",
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      ),
+     * )
+     */
     public function booking(BookingRequest $request, Auto $auto){
         $active_orders = $auto->orders()
             ->whereBetween('date_start',[$request->date_start, $request->date_end])
@@ -79,6 +275,40 @@ class AutoController extends Controller
         }
     }
 
+    /**
+     * @param Auto $auto
+     *
+     * @OA\Delete(
+     *     path="/autos/{id}",
+     *     tags={"Автомобиль"},
+     *     summary="Удалить автомобиль",
+     *     @OA\Parameter(
+     *         name="id",
+     *         description="Auto id",
+     *         required=true,
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Успешный запрос",
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      ),
+     * )
+     */
     public function destroy(Auto $auto)
     {
         $auto->delete();
